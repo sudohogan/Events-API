@@ -1,7 +1,7 @@
 import User from '../model/user';
 import { Request, Response } from "express";
 import {CustomAPIError} from '../errors';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 
 export const signUp = async (req: Request, res: Response) => {

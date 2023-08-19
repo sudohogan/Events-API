@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { joiRegister, joiLogin } from "../middleware/joiValidation";
+import { joiRegister, joiLogin } from "../middleware/joiUser";
 import { signUp, signIn } from "../controllers/userController";
 
 export const userRouter = Router()

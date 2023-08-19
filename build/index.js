@@ -16,9 +16,11 @@ const express_1 = __importDefault(require("express"));
 const connect_1 = require("./db/connect");
 const userRoutes_1 = require("./routes/userRoutes");
 const body_parser_1 = __importDefault(require("body-parser"));
+const eventRoutes_1 = require("./routes/eventRoutes");
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use('/api/v1/users', userRoutes_1.userRouter);
+app.use('/api/v1/events', eventRoutes_1.eventRouter);
 const port = process.env.PORT || 3000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
