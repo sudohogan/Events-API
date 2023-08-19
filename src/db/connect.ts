@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
 
-export const connectDB = (url: any ) => {
-  return mongoose.connect(url);
+export const connectDB = () => {
+  return mongoose.connect('mongodb+srv://sudohogan:Palamiho85@testing.pzi0ylw.mongodb.net/Week12DB?retryWrites=true&w=majority');
 };

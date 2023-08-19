@@ -15,12 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const connect_1 = require("./db/connect");
 const userRoutes_1 = require("./routes/userRoutes");
+const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
-app.use(userRoutes_1.router);
+app.use(body_parser_1.default.json());
+app.use('/api/v1/users', userRoutes_1.userRouter);
 const port = process.env.PORT || 3000;
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, connect_1.connectDB)(process.env.PORT);
+        yield (0, connect_1.connectDB)();
         app.listen(port, () => console.log(`Server is listening on port ${port}...`));
     }
     catch (error) {

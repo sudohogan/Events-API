@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
+exports.userRouter = void 0;
 const express_1 = require("express");
-const router = (0, express_1.Router)();
-exports.router = router;
-router.get('/', (req, res) => {
-    res.send('<h1>Hello There</h1>');
-});
+const joiValidation_1 = require("../middleware/joiValidation");
+const userController_1 = require("../controllers/userController");
+exports.userRouter = (0, express_1.Router)();
+exports.userRouter.post('/sign-up', joiValidation_1.joiRegister, userController_1.signUp).post('/sign-in', joiValidation_1.joiLogin, userController_1.signIn);

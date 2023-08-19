@@ -1,9 +1,7 @@
 import { Router } from "express";
+import { joiRegister, joiLogin } from "../middleware/joiValidation";
+import { signUp, signIn } from "../controllers/userController";
 
-const router = Router()
+export const userRouter = Router()
 
-router.get('/', (req, res) => {
-    res.send('<h1>Hello There</h1>')
-})
-
-export {router} 
+userRouter.post('/sign-up', joiRegister, signUp).post('/sign-in', joiLogin, signIn)
