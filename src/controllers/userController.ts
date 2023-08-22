@@ -1,4 +1,4 @@
-import User from '../model/user';
+import User from '../model/User';
 import { Request, Response } from "express";
 import {CustomAPIError} from '../errors';
 import jwt from 'jsonwebtoken';

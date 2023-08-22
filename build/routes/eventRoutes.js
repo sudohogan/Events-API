@@ -7,4 +7,7 @@ const verifyToken_1 = require("../middleware/verifyToken");
 const eventController_1 = require("../controllers/eventController");
 exports.eventRouter = (0, express_1.Router)();
 exports.eventRouter.post('/', joiEvent_1.joiCreateEvent, verifyToken_1.verifyToken, eventController_1.createEvent)
-    .get('/', verifyToken_1.verifyToken, eventController_1.getEvent);
+    .get('/', verifyToken_1.verifyToken, eventController_1.getEvent)
+    .delete('/', verifyToken_1.verifyToken, eventController_1.deleteEvents)
+    .delete('/:id', verifyToken_1.verifyToken, eventController_1.deleteEventById)
+    .get('/:id', verifyToken_1.verifyToken, eventController_1.getEventById);

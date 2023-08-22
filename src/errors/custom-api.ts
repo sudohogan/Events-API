@@ -1,4 +1,3 @@
-//import { Err } from "joi";
 
 export class CustomAPIError extends Error {
   static UnauthenticatedError: any;

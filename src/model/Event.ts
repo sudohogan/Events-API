@@ -1,6 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import user from './User';
 
-export const EventSchema = new mongoose.Schema({
+export interface EventCollection extends Document {
+  description: string,
+  dayOfWeek: string,
+  userId: any
+}
+
+export const EventSchema: Schema<EventCollection> = new mongoose.Schema({
   description: {
     type: String,
     required: true,
@@ -13,11 +20,12 @@ export const EventSchema = new mongoose.Schema({
         'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
     ]
   },
-  // userId: {
-  //   type: mongoose.Types.ObjectId,
-  //   ref: 'User',
-  //   required: true,
-  // },
+  userId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 })
+
 
 export default mongoose.model('Event', EventSchema);
