@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { Request, Response, NextFunction } from "express";
-import { CustomAPIError } from "../errors/custom-api";
+import { UnauthorizedError } from "../errors";
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
@@ -12,7 +12,7 @@ export const joiCreateEvent = (req: Request, res: Response, next: NextFunction) 
   
     const { error } = schema.validate(req.body, { abortEarly: false });
     if (error) {
-      throw new CustomAPIError.UnauthenticatedError(error);
+      throw new UnauthorizedError('error');
     }
     return next();
   };

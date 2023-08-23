@@ -1,6 +1,6 @@
 import User from '../model/User';
 import { Request, Response } from "express";
-import {CustomAPIError} from '../errors';
+import {BadRequestError, NotFoundError, UnauthorizedError} from '../errors';
 import jwt from 'jsonwebtoken';
 
 
@@ -17,15 +17,7 @@ export const signUp = async (req: Request, res: Response) => {
   } = req.body;
   const emailExists = await User.findOne({ email });
   if (emailExists) {
-    throw new CustomAPIError.BadRequestError({
-      statusCode: 'Validation error',
-      errors: [
-        {
-          resource: 'Email',
-          message: 'Invalid email',
-        },
-      ],
-    });
+    throw new BadRequestError('');
   }
   const user = await User.create({ ...req.body });
   res
@@ -45,27 +37,15 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new CustomAPIError.BadRequestError({
-      statusCode: 'Validation error',
-      errors: [
-        {
-          resource: 'Email',
-          message: 'Invalid email',
-        },
-      ],
-    });
+    throw new BadRequestError('');
   }
   const user = await User.findOne({ email });
   if (!user) {
-    throw new CustomAPIError.NotFoundError({
-      statusCode: 404,
-      message: 'user not found',
-      error: 'Not Found',
-    });
+    throw new NotFoundError('');
   }
   const isPass = await user.comparePassword(password);
   if (!isPass) {
-    throw new CustomAPIError.UnauthenticatedError('Email or password is invalid');
+    throw new UnauthorizedError('Email or password is invalid');
   }
   const token = await generateToken(user);
 

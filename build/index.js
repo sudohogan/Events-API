@@ -17,6 +17,7 @@ const connect_1 = require("./db/connect");
 const userRoutes_1 = require("./routes/userRoutes");
 const body_parser_1 = __importDefault(require("body-parser"));
 const eventRoutes_1 = require("./routes/eventRoutes");
+require('express-async-errors');
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use('/api/v1/users', userRoutes_1.userRouter);

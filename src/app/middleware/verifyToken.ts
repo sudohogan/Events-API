@@ -2,8 +2,6 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from "express";
 
 
-
-// const config = process.env;
 export const blacklistedTokens: string[] = [];
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {

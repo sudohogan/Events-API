@@ -1,6 +1,6 @@
 import Joi from 'joi'; 
 import { Request, Response, NextFunction } from "express";
-import { CustomAPIError } from "../errors/custom-api";
+import { CustomAPIError } from "../app/errors/CustomError";
 
 export const joiLogin = (req: Request, res: Response, next: NextFunction) => {
   const schema = Joi.object({
