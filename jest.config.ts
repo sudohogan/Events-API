@@ -1,17 +1,18 @@
-import type { Config } from "@jest/types";
-
-const baseDir = '<rootDir>/src/app/'
-const baseTestDir = '<rootDir>/src/test/'
+import type { Config } from '@jest/types'
 
 const config: Config.InitialOptions = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  verbose: true,
-  collectCoverage: true,
-  collectCoverageFrom: [
-    `${baseDir}/**/*.ts`,
-  //  `${baseTestDir}/**/*.ts`
-  ]
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+    verbose: true,
+    collectCoverage: true,
+    collectCoverageFrom: [
+        './src/app/**'
+    ],
+    coverageThreshold: {
+        global: {
+          lines: 50
+        }
+    }
 }
 
 export default config
