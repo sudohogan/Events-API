@@ -1,11 +1,11 @@
-import {NotFoundError} from './not-found';
-import {BadRequestError} from './bad-request';
-import {UnauthorizedError} from './unauthorized';
-import {InternalServer} from './internalServer';
+import {NotFoundError} from './notFound';
+import {UnauthorizedError} from './unauthorizedError';
+import {InternalServerError} from './internalServer';
+import { ValidationError } from "./validationError";
 
 export {
   NotFoundError,
-  BadRequestError,
   UnauthorizedError,
-  InternalServer,
+  InternalServerError,
+  ValidationError
 };

@@ -1,13 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 
-export class InternalServerError extends Error {
+export class UnauthorizedError extends Error {
   statusCode: number;
   error: string;
   message: string;
 
   constructor(statusCode: number, error: string, message: string) {
     super(message);
-    this.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+    this.statusCode = StatusCodes.UNAUTHORIZED;
     this.error = error;
     this.message = message;
   }

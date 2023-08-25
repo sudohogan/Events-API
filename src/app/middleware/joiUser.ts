@@ -1,6 +1,6 @@
 import Joi from 'joi'; 
 import { Request, Response, NextFunction } from "express";
-import { CustomAPIError } from "../app/errors/CustomError";
+import { UnauthorizedError, ValidationError } from "../errors";
 
 export const joiLogin = (req: Request, res: Response, next: NextFunction) => {
   const schema = Joi.object({
@@ -10,7 +10,8 @@ export const joiLogin = (req: Request, res: Response, next: NextFunction) => {
 
   const { error } = schema.validate(req.body, { abortEarly: false });
   if (error) {
-    throw new CustomAPIError.UnauthenticatedError(error);
+    throw new ValidationError([ {resource: "email",
+    message: "invalid email"} ]);
   }
   return next();
 };
@@ -34,7 +35,8 @@ export const joiRegister = (req: Request, res: Response, next: NextFunction): vo
 
   const { error } = schema.validate(req.body, { abortEarly: false });
   if (error) {
-    //throw new Error('error is lol');
+    throw new ValidationError([ {resource: "input",
+    message: "invalid input"} ]);
   }
   return next();
 };
