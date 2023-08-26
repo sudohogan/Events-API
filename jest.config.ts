@@ -5,14 +5,12 @@ const config: Config.InitialOptions = {
     testEnvironment: 'node',
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: [
-        './src/app/**'
-    ],
+    collectCoverageFrom: ['./src/app/**'],
     coverageThreshold: {
         global: {
-          lines: 50
-        }
-    }
+            lines: 50,
+        },
+    },
 }
 
 export default config

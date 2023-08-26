@@ -23,13 +23,11 @@ export const verifyToken = (
         }
         req.user = decoded
     } catch (err) {
-        return res
-            .status(401)
-            .json({
-                statusCode: 401,
-                error: 'Unauthorized',
-                message: 'Not Authenticated, Invalid Token',
-            })
+        return res.status(401).json({
+            statusCode: 401,
+            error: 'Unauthorized',
+            message: 'Not Authenticated, Invalid Token',
+        })
     }
     return next()
 }
