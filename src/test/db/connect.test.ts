@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config'
 import { connectDB } from '../../app/db/connect'
 jest.mock('mongoose')
 
@@ -11,8 +11,6 @@ describe('Test to connect to DB', () => {
         const mongooseMock = require('mongoose')
         mongooseMock.connect.mockResolvedValueOnce()
         await connectDB()
-        expect(mongooseMock.connect).toHaveBeenCalledWith(
-            process.env.MONGO_URL
-        )
+        expect(mongooseMock.connect).toHaveBeenCalledWith(process.env.MONGO_URL)
     })
 })

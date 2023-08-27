@@ -1,71 +1,111 @@
-import User from '../../app/model/User'
+import * as UserModel from '../../app/model/User'
+import { Request, Response } from 'express'
+import { signIn, signUp } from '../../app/controllers/userController'
+import { UnauthorizedError } from '../../app/errors/index'
 
-describe.skip('Create users', () => {
-    it('Should create a new user successfully!', () => {
-        const userMock = {
-            firstName: 'fries',
-            lastName: 'fries',
-            birthDate: '2023-08-24',
-            city: 'string city',
-            country: 'Nigeria',
-            email: 'fries@email.com',
-            password: 'password',
-            confirmPassword: 'stpasswordring',
-        }
-        const spy = jest
-            .spyOn(User, 'create')
-            .mockReturnValueOnce(userMock as any)
-        User.create(userMock)
-        const spyCreatedUser = spy.mock.results[0].value
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spyCreatedUser.firstName).toEqual(userMock.firstName)
-        spy.mockReset()
-    })
+jest.mock('../../app/model/User')
+jest.mock('../../app/errors/index')
 
-    it('retruns an error when the email is missing', () => {
-        const userMock = {
-            email: 'user@gmail.com',
-        }
-        const spy = jest
-            .spyOn(User, 'create')
-            .mockReturnValueOnce('email is required' as any)
-        User.create(userMock)
-        const spyCreatedUser = spy.mock.results[0].value
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spyCreatedUser).toEqual('email is required')
+describe('Test Suite for user signup', () => {
+  let req: Request
+  let res: Response
 
-        spy.mockReset()
-    })
+  beforeEach(() => {
+      req = {
+          body: {
+            firstName: "firsts",
+            lastName: "lasts",
+            birthDate: "2023-08-27",
+            city: "good City",
+            country: "Naija",
+            email: "mock@email.com",
+            password: "password",
+            confirmPassword: "password"
+          },
+      } as Request
+      res = {
+          status: jest.fn().mockReturnThis(),
+          json: jest.fn(),
+      } as unknown as Response
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+  })
+
+  it('creayes a user', async () => {
+      const userMock = {
+        _id: '123',
+        firstName: "firsts",
+        lastName: "lasts",
+        birthDate: "2023-08-27",
+        city: "good City",
+        country: "Naija",
+        email: "mock@email.com",
+        password: "password",
+        confirmPassword: "password"
+      }
+      const createuserMock = jest
+          .spyOn(UserModel.default, 'create')
+          .mockResolvedValue(userMock as any)
+      await signUp(req, res)
+      expect(UserModel.default.findOne).toHaveBeenCalledWith({
+          email: 'mock@email.com',
+      })
+      expect(createuserMock).toHaveBeenCalledWith({
+        _id: '123',
+        firstName: "firsts",
+        lastName: "lasts",
+        birthDate: "2023-08-27",
+        city: "good City",
+        country: "Naija",
+        email: "mock@email.com",
+        password: "password",
+        confirmPassword: "password"
+      })
+      expect(res.status).toHaveBeenCalledWith(201)
+      expect(res.json).toHaveBeenCalledWith(userMock)
+  })
 })
 
-describe.skip('Sign in Users', () => {
-    it('Signs in an already created user', () => {
-        const userMocker = {
-            email: 'fries@email.com',
-            password: 'password',
-        }
-        const spy = jest
-            .spyOn(User, 'collection')
-            .mockReturnValueOnce(userMocker as any)
-        User.create(userMocker)
-        const spyCreatedUser = spy.mock.results[0].value
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spyCreatedUser.email).toEqual(userMocker.email)
-        spy.mockReset()
-    })
+describe('Test suite for user sign-in', ()=>{
+  let req: Request
+  let res: Response
 
-    it('retruns an error when the email is missing', () => {
-        const userMock = {
-            email: 'user@gmail.com',
-        }
-        const spy = jest
-            .spyOn(User, 'create')
-            .mockReturnValueOnce('email is required' as any)
-        User.create(userMock)
-        const spyCreatedUser = spy.mock.results[0].value
-        expect(spy).toHaveBeenCalledTimes(1)
-        expect(spyCreatedUser).toEqual('email is required')
+  beforeEach(() => {
+      req = {
+          body: {
+            email: "mock@email.com",
+            password: "password",
+          },
+      } as Request
+      res = {
+          status: jest.fn().mockReturnThis(),
+          json: jest.fn(),
+      } as unknown as Response
+  })
 
-        spy.mockReset()
-    })
+  afterEach(() => {
+      jest.clearAllMocks()
+  })
+
+  it('logs  a user into an account', async () => {
+      const userMock = {
+        email: "mock@email.com",
+        password: "password",
+      }
+      const createuserMock = jest
+          .spyOn(UserModel.default, 'find')
+          .mockResolvedValue(userMock as any)
+      await signIn(req, res)
+      // expect(UserModel.default.findOne).toHaveBeenCalledWith({
+      //     email: 'mock@email.com',
+      // })
+      expect(createuserMock).toHaveBeenCalledWith({
+        email: "mock@email.com",
+        password: "password",
+      })
+      expect(res.status).toHaveBeenCalledWith(200)
+      expect(res.json).toHaveBeenCalledWith(userMock)
+  }) 
 })
