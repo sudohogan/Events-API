@@ -2,7 +2,7 @@ import User from '../../app/model/User'
 
 describe('Create users', () => {
     it('Should create a new user successfully!', () => {
-        const userMock = {
+        const mockedUser = {
             firstName: 'fries',
             lastName: 'fries',
             birthDate: '2023-08-24',
@@ -14,11 +14,11 @@ describe('Create users', () => {
         }
         const spy = jest
             .spyOn(User, 'create')
-            .mockReturnValueOnce(userMock as any)
-        User.create(userMock)
+            .mockReturnValueOnce(mockedUser as any)
+        User.create(mockedUser)
         const spyCreatedUser = spy.mock.results[0].value
         expect(spy).toHaveBeenCalledTimes(1)
-        expect(spyCreatedUser.firstName).toEqual(userMock.firstName)
+        expect(spyCreatedUser.firstName).toEqual(mockedUser.firstName)
         spy.mockReset()
     })
 })
