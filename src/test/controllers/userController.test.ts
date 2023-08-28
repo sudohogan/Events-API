@@ -106,6 +106,6 @@ describe('Test suite for user sign-in', ()=>{
         password: "password",
       })
       expect(res.status).toHaveBeenCalledWith(200)
-      expect(res.json).toHaveBeenCalledWith(userMock)
+      expect(res.json).toEqual(userMock)
   }) 
 })
