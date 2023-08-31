@@ -1,7 +1,7 @@
 import User from '../../app/model/User'
 
 describe('Create users', () => {
-    it('Should create a new user successfully!', () => {
+    it('Creates a new user', () => {
         const mockedUser = {
             firstName: 'fries',
             lastName: 'fries',
@@ -10,7 +10,7 @@ describe('Create users', () => {
             country: 'Nigeria',
             email: 'fries@email.com',
             password: 'password',
-            confirmPassword: 'stpasswordring',
+            confirmPassword: 'password',
         }
         const spy = jest
             .spyOn(User, 'create')
