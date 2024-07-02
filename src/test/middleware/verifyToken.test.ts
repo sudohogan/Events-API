@@ -34,25 +34,6 @@ describe('verifyToken', () => {
         expect(mockNext).toHaveBeenCalled()
     })
 
-    // it('returns an error if there is no token', () => {
-    //     const mockRequest = {
-    //         headers: {},
-    //     }
-
-    //     const mockResponse = {
-    //         status: jest.fn().mockReturnThis(),
-    //         send: jest.fn(),
-    //     }
-
-    //     const mockNext = jest.fn()
-
-    //     verifyToken(mockRequest as any, mockResponse as any, mockNext)
-    //     expect(mockResponse.status).toHaveBeenCalledWith(403)
-    //     expect(mockResponse.send).toHaveBeenCalledWith(
-    //         'A token is required for authentication'
-    //     )
-    // })
-
     it('returns an error if token is invalid', () => {
         blacklistedTokens.push('invalid_token')
 

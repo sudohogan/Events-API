@@ -33,7 +33,7 @@ describe('Test Suite for user signup', () => {
       jest.clearAllMocks()
   })
 
-  it('creayes a user', async () => {
+  it('creates a user', async () => {
       const userMock = {
         _id: '123',
         firstName: "firsts",
@@ -98,9 +98,6 @@ describe('Test suite for user sign-in', ()=>{
           .spyOn(UserModel.default, 'find')
           .mockResolvedValue(userMock as any)
       await signIn(req, res)
-      // expect(UserModel.default.findOne).toHaveBeenCalledWith({
-      //     email: 'mock@email.com',
-      // })
       expect(createuserMock).toHaveBeenCalledWith({
         email: "mock@email.com",
         password: "password",

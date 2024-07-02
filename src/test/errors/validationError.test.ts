@@ -4,7 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 describe('Validation Error Test Suite', () => {
     const errors = [
       { resource: 'login', message: 'invalid email' },
-      //{ resource: 'User', message: 'invalid password' },
     ];
     const validationError = new ValidationError(errors);
   
